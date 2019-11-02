@@ -447,16 +447,26 @@ div.info span.story
   color: rgba(0,0,0,0.5);
 }
 
-div.btn-back span.bnt-back-span
+div.btn-back span.btn-back-span
 {
     background: #6a18ff;
-    width: 60px;
-    height: 60px;
+
 }
 
-div.btn-back span.bnt-back-span i
+div.btn-back span.btn-back-span button
 {
+    margin-top: 20px;
     background: #6a18ff;
+    width: 200px;
+    height: 60px;
+    left: 50%;
+}
+
+div.btn-back span.btn-back-span button:hover
+{
+  background: white;
+  color: black;
+  font: bold;
 }
 
 div.footer-popup

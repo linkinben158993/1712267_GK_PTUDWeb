@@ -7,17 +7,9 @@ let top_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=21702253a
 //Get Gernes List
 let genreList = "https://api.themoviedb.org/3/genre/movie/list?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US";
 
-function evtSubmit(e) {
-    e.preventDefault();
-
-    const strSearch = $('form input').val();
-
-    const reqStr = strSearch;
-}
-
 var spinner = $("div.spinner-border").hide();
 
-$(document).ready(function (movies_popular) {
+$(document).ready(function () {
     let genres = [];
 
     $.ajax({
@@ -48,8 +40,6 @@ $(document).ready(function (movies_popular) {
 
             console.log(movies_list);
             console.log(genres);
-
-
 
             var content = '';
             for (const item of movies_list) {
