@@ -3,7 +3,9 @@ let specific_movie = "https://api.themoviedb.org/3/movie/550?api_key=21702253ac3
 //Get Lists Of Popular Movies
 let popular_movies = "https://api.themoviedb.org/3/movie/popular?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&page=1";
 //Get Lists Of Top Movies
-let top_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&page=1"
+let top_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&page=1";
+//Get Gernes List
+let genreList = "https://api.themoviedb.org/3/genre/movie/list?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US";
 
 function evtSubmit(e) {
     e.preventDefault();
@@ -15,37 +17,62 @@ function evtSubmit(e) {
 
 var spinner = $("div.spinner-border").hide();
 
-$(document).ready(function () {
-    var list_movies;
+$(document).ready(function (movies_popular) {
+    let genres = [];
+
     $.ajax({
-        url: popular_movies,
+        url: genreList,
         type: 'GET',
         dataType: 'json',
+
+        success: function(data){
+            genres.push(data.genres);
+        },
+        
         error: function () {
             alert("Fetch Failed!");
         }
     })
 
+    $.ajax({
+        url: popular_movies,
+        type: 'GET',
+        dataType: 'json',
+        
+        error: function () {
+            alert("Fetch Failed!");
+        }
+    })
         .done(function (data) {
-            console.log(data);
-
             let movies_list = data.results;
 
             console.log(movies_list);
+            console.log(genres);
+
+
 
             var content = '';
             for (const item of movies_list) {
                 let count = 0;
+
+                let movie_genres = [];
+
+                for(const genre_item of genres[0]){
+                    for(const movies_list_genres of item.genre_ids){
+                        if(genre_item.id == movies_list_genres){
+                            movie_genres.push(genre_item.name);
+                        }
+                    }
+                }
+
+                console.log(movie_genres);
+
                 content += `
                 <div class = "content">
                     <div class="list-thumb">
-                        <img src="https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg"
+                        <img src="http://image.tmdb.org/t/p/w185/${item.poster_path}"
                             alt="" width="110">
                     </div>
-
-                    <span class="book-now">
-                        <button class="btn-info"><i class="fa fa-info-circle"></i></button>
-                    </span>
 
                     <div class="movie-detail">
                         <div class="short-detail">
@@ -66,18 +93,29 @@ $(document).ready(function () {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="genre">
-                                        Action | Sci-Fi | Adventure
+                                    <td class="genre">`
+                                
+                                for(const item_genre of movie_genres){
+                                    content += `| ${item_genre} |`
+                                }
+                                    // <td class="genre">
+                                    //     ${movie_genres[0]} | ${movie_genres[1]} | ${movie_genres[2]}
+                                    // </td>
+
+                content +=      `</tr>
                                     </td>
-                                </tr>
                                 <tr>
-                                    <td class="duration">
-                                        3h 50 minutes
+                                    <td class="release">
+                                        Release Date: ${item.release_date}
                                     </td>
                                 </tr>
 
                             </table>
                             <span class="more-option"></span>
+                            
+                            <span class="book-now">
+                                <button class="btn-info"><i class="fa fa-info-circle"></i></button>
+                            </span>
                         </div>
 
                         <div class="full-detail">
@@ -106,15 +144,19 @@ $(document).ready(function () {
                             </table>
                             <div class="meta-data">
                                 <ul class="nav">
-                                    <li class="active">Info</li>
-                                    <li>Cast</li>
-                                    <li>Reviews</li>
-                                    <li>Awards(0)</li>
+                                    <button class="active"><li class="active">Info</li></button>
+                                    <button class=""><li>Cast</li></button>
+                                    <button class=""><li>Reviews</li></button>
+                                    <button class=""><li>Awards(0)</li></button>
                                 </ul>
                                 <div class="info">
-                                    <span class="genre">
-                                        Action | Sci-Fi | Adventure
-                                    </span>
+                                    <span class="genre"> `
+                                    
+                                    for(const item_genre of movie_genres){
+                                        content += `| ${item_genre} |`
+                                    }
+
+                content +=          `</span>
                                     <span class="story">
                                         ${item.overview}
                                         <br />
