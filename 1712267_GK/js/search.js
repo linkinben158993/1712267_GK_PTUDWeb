@@ -1,21 +1,39 @@
-//Search Query's Prefix
-let searchQuerySuffix = 'https://api.themoviedb.org/3/search/movie?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&query=';
-//Search Query's Suffix
-let searchQueryPrefix = '&page=1&include_adult=false';
+//Search Query's Prefix Movie
+let searchQuerySuffix_Movie = 'https://api.themoviedb.org/3/search/movie?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&query=';
+//Search Query's Suffix Movie
+let searchQueryPrefix_Movie = '&page=1&include_adult=false';
+
 //Get Gernes List
 let genreList = "https://api.themoviedb.org/3/genre/movie/list?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US";
 
+//Search Query's Prefix People
+let searchQuerySuffix_People = 'https://api.themoviedb.org/3/search/person?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&query=';
+//Search Query's Suffix People
+let searchQueryPrefix_People = '&page=1&include_adult=false';
+
+$body = $("body");
+
+//Loading screen
+$(document).on({
+    ajaxStart: function () { $body.addClass("loading"); },
+    ajaxStop: function () { $body.removeClass("loading"); }
+});
 
 $(document).ready(function () {
     $('#search-txt').on("keyup", function () {
         let value = $(this).val().toLowerCase();
         if (event.key === 'Enter') {
+
             let searchString = value;
             searchString = searchString.replace(/\s/g, "%20");
-            let finalSearchQuery = searchQuerySuffix + searchString + searchQueryPrefix;
-            console.log(finalSearchQuery);
+            let finalSearchQuery_Movie = searchQuerySuffix_Movie + searchString + searchQueryPrefix_Movie;
+            //console.log(finalSearchQuery);
+
+
+            let finalSearchQuery_People = searchQuerySuffix_People + searchString + searchQueryPrefix_People;
 
             let genres = [];
+            
             $.ajax({
                 url: genreList,
                 type: 'GET',
@@ -31,7 +49,7 @@ $(document).ready(function () {
             })
 
             $.ajax({
-                url: finalSearchQuery,
+                url: finalSearchQuery_Movie,
                 type: 'GET',
                 dataType: 'json',
 
@@ -44,11 +62,47 @@ $(document).ready(function () {
                 }
             })
                 .done(function (data) {
-                    
+
                     let movies_list = data.results;
-                    
-                    console.log(genres[0]);
-                    console.log(movies_list);
+                    var content = '';
+                    //console.log(genres[0]);
+                    console.log(Object.keys(movies_list).length);
+
+                    if (Object.keys(movies_list).length == 0) {
+
+                        $.ajax({
+                            url: genreList,
+                            type: 'GET',
+                            dataType: 'json',
+
+                            success: function (data) {
+                                genres.push(data.genres);
+                            },
+
+                            error: function () {
+                                alert("Fetch Failed!");
+                            }
+                        })
+
+                        $.ajax({
+                            url: finalSearchQuery_People,
+                            type: 'GET',
+                            dataType: 'json',
+
+                            success: function () {
+
+                            },
+
+                            error: function () {
+                                alert("Fetch Failed!");
+                            }
+                        })
+
+                        .done(function(data){
+                            let people = data.results;
+                            console.log(people);
+                        })
+                    }
 
                     var content = '';
                     for (const item of movies_list) {
@@ -64,7 +118,7 @@ $(document).ready(function () {
                             }
                         }
 
-                        console.log(movie_genres);
+                        //console.log(movie_genres);
 
                         content += `
                         <div class = "content">
@@ -127,7 +181,7 @@ $(document).ready(function () {
                                         </tr>
                                         <tr>
                                             <td class="duration">
-                                                3h 50 minutes
+                                                ${item.runtime} minutes.
                                             </td>
                                         </tr>
                                         <tr>

@@ -1,117 +1,198 @@
-*
-{
+
+* {
   margin: 0;
   padding: 0;
   outline: none;
 }
 
-body
-{
+body {
+  margin: 0;
+  padding: 0;
   font-family: 'Roboto', sans-serif;
   background: #1e2535;
 }
 
-.container
-{
+.container-search {
+  position: absolute;
+  top: 10%;
+  left: 33%;
+  transform: translate(-50%, -50%);
+  background: #2f3640;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+}
+
+.container-back {
+  position: absolute;
+  top: 10%;
+  left: 72%;
+  transform: translate(-50%, -50%);
+  background: #2f3640;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+}
+
+.container-search:hover>.search-txt {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.container-back:hover>.back-btn {
+  width: 240px;
+  padding: 0 6px;
+  text-align: center;
+}
+
+.container-back:hover>.search-btn {
+  background: white;
+  color: black;
+}
+
+.container-back:hover>.back-btn {
+  background: transparent;
+  color: white;
+}
+
+.search-btn {
+  color: #6a18ff;
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2f3640;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  color: white;
+  cursor: pointer;
+}
+
+.search-btn>i {
+  font-size: 30px;
+}
+
+.search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+  font-weight: bold;
+}
+
+.back-btn {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 150px;
+  font-weight: bold;
+}
+
+.container {
   position: relative;
   width: 800px;
   height: 900px;
   margin: 0px auto;
-  left:50%;
+  left: 50%;
   margin-left: -215px;
   display: inline-block;
+  margin-top: 6%;
 }
 
-div.app
-{
+div.app {
   position: relative;
-  height: 3000px;
+  /* height: auto; */
   background: #6a18ff;
   margin-top: 30px;
-  box-shadow: inset -15px -15px 80px rgba(0,0,0,0.15);
+  box-shadow: inset -15px -15px 80px rgba(0, 0, 0, 0.15);
   perspective: 500px;
   right: 20%;
   overflow: hidden;
+  display: block;
+  min-height: 800px;
+  overflow-y: auto;
 }
 
-div.app:before
-{
+div.app:before {
   position: absolute;
   content: '';
-  width: 300%;
-  height:120%;
-  background: rgba(255,255,255,0.92);
-  bottom: -30%;
+  width: 200%;
+  height: 105%;
+  background: rgba(255, 255, 255, 0.92);
+  bottom: -10%;
   transform-origin: left bottom;
-  transform: rotate(-8deg);
+  transform: rotate(-5deg);
   z-index: -1;
 }
 
-div.nav
-{
+div.nav {
   position: absolute;
   width: 100%;
 }
 
-div.nav div.nav-top
-{
+div.nav div.nav-top {
   padding-top: 15px;
   padding-bottom: 28px;
   width: 100%;
 }
 
-div.nav div.nav-top a
-{
+div.nav div.nav-top a {
   width: 32.555%;
   color: rgb(34, 33, 33);
   font-size: 21px;
   opacity: 0.9;
 }
 
-div.nav div.nav-top a:hover
-{
+div.nav div.nav-top a:hover {
   background: white;
   color: black;
 }
 
-
-div.nav div.nav-top a i:last-child
-{
+div.nav div.nav-top a i:last-child {
   width: 30%;
   text-align: center;
 }
 
-div.nav div.nav-top a i:nth-child(2)
-{
+div.nav div.nav-top a i:nth-child(2) {
   position: relative;
   opacity: 0.3;
   text-align: center;
   top: -1px;
 }
 
-div.nav div.nav-top a i:first-child
-{
+div.nav div.nav-top a i:first-child {
   width: 30%;
   margin-left: 15px;
   text-align: center;
 }
 
-div.nav:before
-{
+div.nav:before {
   position: absolute;
   content: '';
   width: 100%;
   height: 85%;
-  box-shadow: inset 0 65px 55px -25px rgba(0,0,0,0.3);
+  box-shadow: inset 0 65px 55px -25px rgba(0, 0, 0, 0.3);
 }
 
-div.nav ul
-{
+div.nav ul {
   margin-left: 30px;
 }
 
-div.nav ul li
-{
+div.nav ul li {
   float: left;
   list-style: none;
   color: #fff;
@@ -122,35 +203,28 @@ div.nav ul li
   opacity: 0.35;
 }
 
-div.nav ul li.active
-{
+div.nav ul li.active {
   font-weight: 200;
   transform: scale(2.3);
   opacity: 0.95;
 }
 
-div.list-items
-{
+div.list-items {
   position: relative;
   top: 100px;
 }
 
-div.list-item
-{
+div.list-item {
   position: relative;
   margin-bottom: 25px;
   padding: 0 0 0 3%;
-  display: flex;
-  flex-direction: column;
 }
 
-div.content
-{
-  margin: 10px;
+div.content {
+  margin: 40px;
 }
 
-div.list-thumb
-{
+div.list-thumb {
   position: absolute;
   width: 110px;
   /*height: 250px;*/
@@ -158,43 +232,32 @@ div.list-thumb
   overflow: hidden;
   border-radius: 10px;
   transform: scale(0.85) translateX(0px);
-  box-shadow: 10px 15px 15px -10px rgba(0,0,0,0.2);
+  box-shadow: 10px 15px 15px -10px rgba(0, 0, 0, 0.2);
   opacity: 1;
   z-index: 1;
-
-
   /*height: 159px;
-  border-radius: 0;
-  box-shadow: 0 0 5px 3px rgba(0,0,0,0.15);
-  transform: scale(0.9) translateX(3px) translateY(-10px);*/
+border-radius: 0;
+box-shadow: 0 0 5px 3px rgba(0,0,0,0.15);
+transform: scale(0.9) translateX(3px) translateY(-10px);*/
 }
 
-div.spinner-border
-{
-    border-radius: 80%;
-    width: 80px;
-    height: 80px;
-}
-
-div.list-item span.movie-time-left
-{
+div.list-item span.movie-time-left {
   position: absolute;
   font-size: 11px;
   font-weight: 600;
   bottom: -5px;
   left: 25px;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
 
-div.content span.book-now
-{
+div.content span.book-now {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 1;
   font-size: 40px;
   font-weight: 600;
-  color: rgba(255,255,255,0.95);
+  color: rgba(255, 255, 255, 0.95);
   background: #6a18ff;
   width: 60px;
   height: 60px;
@@ -204,22 +267,18 @@ div.content span.book-now
   border-radius: 10px;
   margin-top: 80px;
   transform: translateX(-15px);
-  box-shadow: 0 18px 15px -10px rgba(106,24,255,0.5),
-              0 18px 15px -10px rgba(0,0,0,0.05);
-
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  border-top: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 18px 15px -10px rgba(106, 24, 255, 0.5), 0 18px 15px -10px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   /*display: none;*/
 }
 
-div.list-item span.book-now i
-{
+div.list-item span.book-now i {
   /* transform: rotate(45deg); */
   background: #6a18ff;
 }
 
-div.movie-detail
-{
+div.movie-detail {
   width: 97%;
   top: 0;
   z-index: -1;
@@ -228,8 +287,7 @@ div.movie-detail
   transform: translateY(25px);
 }
 
-div.movie-detail div.short-detail
-{
+div.movie-detail div.short-detail {
   position: absolute;
   left: 0;
   width: 80%;
@@ -240,73 +298,63 @@ div.movie-detail div.short-detail
   border-radius: 5px;
   transform-origin: left bottom;
   transform: translateX(75px) scaleY(1);
-  box-shadow: 0 25px 45px -10px rgba(0,0,0,0.3);
+  box-shadow: 0 25px 45px -10px rgba(0, 0, 0, 0.3);
   opacity: 1;
 }
 
-div.movie-detail div.short-detail td
-{
+div.movie-detail div.short-detail td {
   padding: 1px 0;
 }
 
-div.movie-detail div.short-detail .title
-{
+div.movie-detail div.short-detail .title {
   font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.2px;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
-div.movie-detail div.short-detail .author
-{
+div.movie-detail div.short-detail .author {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.2px;
-  color: rgba(0,0,0,0.4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
-div.movie-detail div.short-detail .rating
-{
+div.movie-detail div.short-detail .rating {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.2px;
   color: #6a18ff;
 }
 
-div.movie-detail .rating i.na
-{
+div.movie-detail .rating i.na {
   opacity: 0.5;
 }
 
-div.movie-detail div.short-detail .genre
-{
+div.movie-detail div.short-detail .genre {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.2px;
   color: #000;
 }
 
-div.movie-detail div.short-detail span.more-option
-{
+div.movie-detail div.short-detail span.more-option {
   position: absolute;
   width: 4px;
   height: 4px;
   display: inline-block;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   right: 20px;
   top: 20px;
   border-radius: 100%;
-  box-shadow: 0 6px 0 rgba(0,0,0,0.2),
-              0 12px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2), 0 12px 0 rgba(0, 0, 0, 0.2);
 }
 
-div.list-item .full-detail
-{
+div.list-item .full-detail {
   display: none;
 }
 
-div.movie-detail div.full-detail
-{
+div.movie-detail div.full-detail {
   position: relative;
   width: 100%;
   background: #fff;
@@ -317,62 +365,55 @@ div.movie-detail div.full-detail
   opacity: 1;
 }
 
-div.full-detail span.show-time
-{
+div.full-detail span.show-time {
   position: absolute;
   right: 0;
   font-size: 13px;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   background: #fff;
   padding: 15px 10px;
   margin-top: -30px;
   margin-right: 15px;
   border-radius: 3px;
-  box-shadow: 0 12px 15px -2px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 15px -2px rgba(0, 0, 0, 0.15);
   opacity: 1;
 }
 
-div.full-detail span.show-time span
-{
+div.full-detail span.show-time span {
   font-weight: 600;
   color: #000;
   margin-left: 5px;
 }
 
-div.full-detail table
-{
+div.full-detail table {
   position: relative;
   margin-left: 120px;
   top: 35px;
 }
 
-div.movie-detail div.full-detail .title
-{
+div.movie-detail div.full-detail .title {
   font-size: 21px;
   font-weight: 900;
   letter-spacing: 0.2px;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
-div.full-detail .author
-{
+div.full-detail .author {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.2px;
-  color: rgba(0,0,0,0.4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
-div.full-detail .duration
-{
+div.full-detail .duration {
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.2px;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
   padding-top: 2px;
 }
 
-div.full-detail .rating
-{
+div.full-detail .rating {
   font-size: 19px;
   font-weight: 500;
   letter-spacing: 0.2px;
@@ -380,8 +421,7 @@ div.full-detail .rating
   padding-top: 1px;
 }
 
-div.full-detail .rating span
-{
+div.full-detail .rating span {
   position: relative;
   font-size: 12px;
   font-weight: 500;
@@ -389,15 +429,13 @@ div.full-detail .rating span
   top: -3px;
 }
 
-div.meta-data
-{
+div.meta-data {
   position: relative;
   margin-top: 50px;
   margin-left: 24.5px;
 }
 
-div.meta-data ul.nav button
-{
+div.meta-data ul.nav button {
   position: relative;
   float: left;
   list-style: none;
@@ -408,35 +446,31 @@ div.meta-data ul.nav button
   color: #6a18ff;
   padding: 10px 0;
   padding-left: 0;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-div.meta-data ul.nav button.active:before
-{
+div.meta-data ul.nav button.active:before {
   position: absolute;
   content: '';
   width: 100%;
   height: 45px;
-  background: rgba(0,0,0,0.07);
+  background: rgba(0, 0, 0, 0.07);
   bottom: -1.5px;
 }
 
-div.info
-{
+div.info {
   position: inherit;
 }
 
-div.info span.genre
-{
+div.info span.genre {
   font-size: 14px;
   font-weight: 600;
   padding-top: 15px;
   display: inline-block;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
-div.info span.story
-{
+div.info span.story {
   display: block;
   padding-top: 10px;
   padding-right: 25px;
@@ -444,33 +478,28 @@ div.info span.story
   font-weight: 500;
   line-height: 20px;
   text-align: justify;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
 
-div.btn-back span.btn-back-span
-{
-    background: #6a18ff;
-
+div.btn-back span.btn-back-span {
+  background: #6a18ff;
 }
 
-div.btn-back span.btn-back-span button
-{
-    margin-top: 20px;
-    background: #6a18ff;
-    width: 200px;
-    height: 60px;
-    left: 50%;
+div.btn-back span.btn-back-span button {
+  margin-top: 20px;
+  background: #6a18ff;
+  width: 200px;
+  height: 60px;
+  left: 50%;
 }
 
-div.btn-back span.btn-back-span button:hover
-{
+div.btn-back span.btn-back-span button:hover {
   background: white;
   color: black;
   font: bold;
 }
 
-div.footer-popup
-{
+div.footer-popup {
   position: absolute;
   width: 85%;
   background: #6a18ff;
@@ -478,12 +507,9 @@ div.footer-popup
   bottom: 20px;
   border-radius: 15px;
   left: 7.5%;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  border-top: 1px solid rgba(0,0,0,0.2);
-  box-shadow: inset -45px 0 105px -25px rgba(0,0,0,0.10),
-              inset 35px 0 105px -15px rgba(0,0,0,0.05),
-              0 30px 30px -25px rgba(0,0,0,0.2),
-              0 30px 30px -25px #6a18ff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset -45px 0 105px -25px rgba(0, 0, 0, 0.10), inset 35px 0 105px -15px rgba(0, 0, 0, 0.05), 0 30px 30px -25px rgba(0, 0, 0, 0.2), 0 30px 30px -25px #6a18ff;
   overflow: hidden;
   padding: 15px 0;
   opacity: 1;
@@ -491,8 +517,7 @@ div.footer-popup
   display: none;
 }
 
-div.footer-popup ul li
-{
+div.footer-popup ul li {
   list-style: none;
   float: left;
   height: 40px;
@@ -502,47 +527,30 @@ div.footer-popup ul li
   font-size: 20px;
 }
 
-div.footer-popup ul li:first-child,
-div.footer-popup ul li:last-child
-{
+div.footer-popup ul li:first-child, div.footer-popup ul li:last-child {
   width: 20%;
 }
 
-div.footer-popup ul li:nth-child(2)
-{
+div.footer-popup ul li:nth-child(2) {
   width: 60%;
-  border-left: 1px solid rgba(255,255,255,0.3);
-  border-right: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   box-sizing: border-box;
 }
 
-div.footer-popup ul li i.fa-ticket
-{
+div.footer-popup ul li i.fa-ticket {
   transform: rotate(45deg);
   font-size: 35px;
   margin-top: 2px;
 }
 
-div.footer-popup ul li span
-{
+div.footer-popup ul li span {
   position: relative;
   font-size: 16px;
   font-weight: 600;
   padding-left: 5px;
   top: -6.5px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .yt {
   position: fixed;
@@ -555,4 +563,31 @@ div.footer-popup ul li span
 
 .yt:hover {
   background: rgba(0, 0, 0, 0.4);
+}
+
+/* Loading */
+.modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 ) 
+              url('http://www.broadwaybalancesamerica.com/images/ajax-loader.gif') 
+              50% 50% 
+              no-repeat;
+}
+
+/* When the body has the loading class, we turn
+ the scrollbar off with overflow:hidden */
+body.loading .modal {
+  overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+ modal element will be visible */
+body.loading .modal {
+  display: block;
 }

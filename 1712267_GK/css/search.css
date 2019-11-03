@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -32,7 +38,7 @@ body {
     padding: 0 6px;
 }
 
-.container-back:hover>.back-btn {
+.container-back:hover>.home-btn {
     width: 240px;
     padding: 0 6px;
     text-align: center;
@@ -43,7 +49,7 @@ body {
     color: black;
 }
 
-.container-back:hover>.back-btn {
+.container-back:hover>.home-btn {
     background: transparent;
     color: white;
 }
@@ -81,7 +87,7 @@ body {
     font-weight: bold;
 }
 
-.back-btn {
+.home-btn {
     border: none;
     background: none;
     outline: none;
@@ -93,17 +99,6 @@ body {
     line-height: 40px;
     width: 150px;
     font-weight: bold;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    outline: none;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background: #1e2535;
 }
 
 .container {
@@ -119,24 +114,27 @@ body {
 
 div.app {
     position: relative;
-    height: 3000px;
+    /* height: auto; */
     background: #6a18ff;
     margin-top: 30px;
     box-shadow: inset -15px -15px 80px rgba(0, 0, 0, 0.15);
     perspective: 500px;
     right: 20%;
     overflow: hidden;
+    display: block;
+    min-height: 800px;
+    overflow-y: auto;
 }
 
 div.app:before {
     position: absolute;
     content: '';
-    width: 300%;
-    height: 120%;
+    width: 200%;
+    height: 105%;
     background: rgba(255, 255, 255, 0.92);
-    bottom: -30%;
+    bottom: -10%;
     transform-origin: left bottom;
-    transform: rotate(-8deg);
+    transform: rotate(-5deg);
     z-index: -1;
 }
 
@@ -208,6 +206,7 @@ div.nav ul li.active {
     font-weight: 200;
     transform: scale(2.3);
     opacity: 0.95;
+    color: black;
 }
 
 div.list-items {
@@ -219,12 +218,10 @@ div.list-item {
     position: relative;
     margin-bottom: 25px;
     padding: 0 0 0 3%;
-    display: flex;
-    flex-direction: column;
 }
 
 div.content {
-    margin: 10px;
+    margin: 40px;
 }
 
 div.list-thumb {
@@ -572,4 +569,31 @@ div.footer-popup ul li span {
 
 .yt:hover {
     background: rgba(0, 0, 0, 0.4);
+}
+
+/* Loading */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .8) url('http://www.broadwaybalancesamerica.com/images/ajax-loader.gif') 50% 50% no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+
+.loading .modal {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+
+.loading .modal {
+    display: block;
 }
