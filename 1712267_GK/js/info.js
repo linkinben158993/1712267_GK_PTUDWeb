@@ -3,6 +3,12 @@ let specific_movie_prefix = "https://api.themoviedb.org/3/movie/";
 
 let specifig_movie_suffix = "?api_key=21702253ac343d65b98f3d4e87663ce2";
 
+// Get Specific Moive Reviews
+let specific_movie_reviews_prefix = "https://api.themoviedb.org/3/movie/";
+
+let specific_movie_reviews_suffix = "/reviews?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&page=1";
+
+
 //Get Lists Of Popular Movies
 let popular_movies = "https://api.themoviedb.org/3/movie/popular?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&page=1";
 
@@ -87,17 +93,16 @@ $(document).ready(function () {
                                 </tr>
                                 <tr>
                                     <td class="rating">`;
-                                    var star = Math.round(parseFloat(item.vote_average)/2);
-                                    console.log(star);
-                                    for (item_rating = 0; item_rating < star; item_rating++){
-                                        content += '<i class="fa fa-star"></i>';
-                                    }
-                                    var blankStar = 5 - star;
-                                    for (item_rating = 0; item_rating < blankStar; item_rating++){
-                                        content += '<i class="fa fa-star na"></i>';
-                                    }
-                                content +=  
-                                    `</td>
+                var star = Math.round(parseFloat(item.vote_average) / 2);
+                for (item_rating = 0; item_rating < star; item_rating++) {
+                    content += '<i class="fa fa-star"></i>';
+                }
+                var blankStar = 5 - star;
+                for (item_rating = 0; item_rating < blankStar; item_rating++) {
+                    content += '<i class="fa fa-star na"></i>';
+                }
+                content +=
+                    `</td>
                                 </tr>
                                 <tr>
                                     <td class="genre">`
@@ -195,7 +200,11 @@ $(document).ready(function () {
 
                 let specific_movie_final = specific_movie_prefix + $(this).val() + specifig_movie_suffix;
 
+                let specific_movie_reviews_final = specific_movie_reviews_prefix + $(this).val() + specific_movie_reviews_suffix;
+                console.log(specific_movie_reviews_final);
+
                 let genres = [];
+                let reviews = [];
 
                 $.ajax({
                     url: genreList,
@@ -204,6 +213,20 @@ $(document).ready(function () {
 
                     success: function (data) {
                         genres.push(data.genres);
+                    },
+
+                    error: function () {
+                        alert("Fetch Failed!");
+                    }
+                })
+
+                $.ajax({
+                    url: specific_movie_reviews_final,
+                    type: 'GET',
+                    dataType: 'json',
+
+                    success: function (data) {
+                        reviews.push(data.results);
                     },
 
                     error: function () {
@@ -223,7 +246,7 @@ $(document).ready(function () {
 
                     .done(function (data) {
                         let movie = data;
-                        console.log(movie);
+
                         var content = '';
                         let movie_genres_list = [];
 
@@ -302,28 +325,28 @@ $(document).ready(function () {
                                             <tr>
                                                 <td class="rating">`
 
-                                                var star = Math.round(parseFloat(movie.vote_average)/2);
-                                                console.log(star);
-                                                for (item_rating = 0; item_rating < star; item_rating++){
-                                                    content += '<i class="fa fa-star"></i>';
-                                                }
-                                                var blankStar = 5 - star;
-                                                for (item_rating = 0; item_rating < blankStar; item_rating++){
-                                                    content += '<i class="fa fa-star na"></i>';
-                                                }
-            
-                                    content +=     `
-                                                    <span>${movie.vote_average}</span>
+                        var star = Math.round(parseFloat(movie.vote_average) / 2);
+
+                        for (item_rating = 0; item_rating < star; item_rating++) {
+                            content += '<i class="fa fa-star"></i>';
+                        }
+                        var blankStar = 5 - star;
+                        for (item_rating = 0; item_rating < blankStar; item_rating++) {
+                            content += '<i class="fa fa-star na"></i>';
+                        }
+
+                        content += `
+                                                    <span>${movie.vote_average}/10</span>
                                                     
                                                 </td>
                                             </tr>
                                         </table>
                                         <div class="meta-data">
                                             <ul class="nav">
-                                                <button class="active"><li class="active">Info</li></button>
-                                                <button class=""><li>Cast</li></button>
-                                                <button class=""><li>Reviews</li></button>
-                                                <button class=""><li>Awards(0)</li></button>
+                                                <button class="info"><li class="active">Info</li></button>
+                                                <button class="cast"><li>Cast</li></button>
+                                                <button class="review"><li>Reviews</li></button>
+                                                <button class="award"><li>Awards(0)</li></button>
                                             </ul>
                                             <div class="info">
                                                 <span class="genre"> `
@@ -333,7 +356,8 @@ $(document).ready(function () {
                         }
 
                         content += `</span>
-                                                <span class="story">
+                                                <span class="story" id="span-content">
+                                                    <h1> Overview </h1>
                                                     ${movie.overview}
                                                     <br />
                                                 </span>
@@ -355,6 +379,29 @@ $(document).ready(function () {
                         // }
                         $('#list-item-content').html(content);
                         $("div.content div.full-detail").show();
+
+                        $(".info").click(function () {
+                            var content = '';
+
+
+                            content += `<h1> Overview </h1>
+                                            ${movie.overview}
+                                            <br />`;
+
+                            $('#span-content').html(content);
+                        })
+
+                        $(".review").click(function () {
+                            var content = '';
+
+                            for (const item_review of reviews[0]) {
+                                console.log(item_review);
+                                content += `<h3> By ${item_review.author}: </h3>
+                                ${item_review.content}
+                                <br /><br />`;
+                            }
+                            $('#span-content').html(content);
+                        })
 
                         $(".btn-back-button").click(function () {
 
