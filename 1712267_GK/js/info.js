@@ -18,7 +18,10 @@ let top_movies = "https://api.themoviedb.org/3/movie/top_rated?api_key=21702253a
 //Get Gernes List
 let genreList = "https://api.themoviedb.org/3/genre/movie/list?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US";
 
-var spinner = $("div.spinner-border").hide();
+//Search Query's Prefix People
+let searchQuerySuffix_Credit = 'https://api.themoviedb.org/3/movie/';
+//Search Query's Suffix People
+let searchQueryPrefix_Credit = '/credits?api_key=21702253ac343d65b98f3d4e87663ce2';
 
 $body = $("body");
 
@@ -344,7 +347,7 @@ $(document).ready(function () {
                                         <div class="meta-data">
                                             <ul class="nav">
                                                 <button class="info"><li class="active">Info</li></button>
-                                                <button class="cast"><li>Cast</li></button>
+                                                <button class="cast" value="${movie.id}"><li>Cast</li></button>
                                                 <button class="review"><li>Reviews</li></button>
                                                 <button class="award"><li>Awards(0)</li></button>
                                             </ul>
@@ -356,10 +359,13 @@ $(document).ready(function () {
                         }
 
                         content += `</span>
-                                                <span class="story" id="span-content">
-                                                    <h1> Overview </h1>
-                                                    ${movie.overview}
+                                                <span class="span-content" id="span-content">
+                                                    <h3 class="overview"> Overview: </h3>
+                                                    <h6> ${movie.overview} </h6>
                                                     <br />
+                                                    <div class = "cast-content-container" id="cast-content-container">
+
+                                                    </div>
                                                 </span>
                                             </div>
                                             <div class="btn-back">
@@ -384,12 +390,12 @@ $(document).ready(function () {
                             var content = '';
 
 
-                            content += `<h1> Overview </h1>
+                            content += `<h3 class="overview"> Overview </h3>
                                             ${movie.overview}
                                             <br />`;
 
                             $('#span-content').html(content);
-                        })
+                        });
 
                         $(".review").click(function () {
                             var content = '';
@@ -401,6 +407,69 @@ $(document).ready(function () {
                                 <br /><br />`;
                             }
                             $('#span-content').html(content);
+                        });
+
+                        $(".cast").click(function () {
+                            $("h3.overview").hide();
+
+                            // Get value from button
+                            let value = $(this).val();
+
+                            let searchString = value;
+
+                            searchString = searchString.replace(/\s/g, "%20");
+
+                            let finalSearchQuery_People = searchQuerySuffix_Credit + searchString + searchQueryPrefix_Credit;
+
+                            console.log(finalSearchQuery_People);
+
+                            $.ajax({
+                                url: finalSearchQuery_People,
+                                type: 'GET',
+                                dataType: 'json',
+
+                                success: function () {
+
+                                },
+
+                                error: function () {
+                                    alert("Fetch Failed!");
+                                }
+                            })
+                                .done(function (data) {
+                                    var content = '';
+                                    content += `<h3>Cast</h3>`;
+
+                                    let cast = data.cast;
+
+                                    let crew = data.crew;
+
+                                    for (const cast_item of cast) {
+                                        content +=
+                                            `
+                                                    <div class="cast-detail">
+                                                            <div class="profile-thumb">
+                                                                <img src="http://image.tmdb.org/t/p/w185/${cast_item.profile_path}"
+                                                                    alt="" width="110">
+                                                            </div>
+                                                    <div class="cast-detail">
+                                                        <table>
+                                                            <tr>
+                                                                <td class="title">${cast_item.name}</td>
+                                                            </tr>
+            
+                                                            <tr>
+                                                                <td class="release">
+                                                                    As: ${cast_item.character}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    <span class="more-option"></span>
+                                                </div>
+                                            </div>`
+                                    }
+                                    $('#cast-content-container').html(content);
+                                })
                         })
 
                         $(".btn-back-button").click(function () {
@@ -408,8 +477,8 @@ $(document).ready(function () {
                             location.reload();
 
                         });
-                    })
+                    });
             });
-        })
+        });
 });
 

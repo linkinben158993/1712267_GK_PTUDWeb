@@ -37,10 +37,7 @@ $(document).ready(function () {
             let searchString = value;
             searchString = searchString.replace(/\s/g, "%20");
             let finalSearchQuery_Movie = searchQuerySuffix_Movie + searchString + searchQueryPrefix_Movie;
-            //console.log(finalSearchQuery);
 
-
-            let finalSearchQuery_People = searchQuerySuffix_People + searchString + searchQueryPrefix_People;
 
             let genres = [];
 
@@ -87,20 +84,6 @@ $(document).ready(function () {
 
                             success: function (data) {
                                 genres.push(data.genres);
-                            },
-
-                            error: function () {
-                                alert("Fetch Failed!");
-                            }
-                        })
-
-                        $.ajax({
-                            url: finalSearchQuery_People,
-                            type: 'GET',
-                            dataType: 'json',
-
-                            success: function () {
-
                             },
 
                             error: function () {
@@ -445,7 +428,6 @@ $(document).ready(function () {
                                     var content = '';
 
                                     for (const item_review of reviews[0]) {
-                                        console.log(item_review);
                                         content += `<h3> By ${item_review.author}: </h3>
                                         ${item_review.content}
                                         <br /><br />`;
