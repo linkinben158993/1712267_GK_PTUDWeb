@@ -17,9 +17,9 @@ let searchQueryPrefix_Movie = '&page=1&include_adult=false';
 let genreList = "https://api.themoviedb.org/3/genre/movie/list?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US";
 
 //Search Query's Prefix People
-let searchQuerySuffix_People = 'https://api.themoviedb.org/3/search/person?api_key=21702253ac343d65b98f3d4e87663ce2&language=en-US&query=';
+let searchQuerySuffix_Credit = 'https://api.themoviedb.org/3/movie/';
 //Search Query's Suffix People
-let searchQueryPrefix_People = '&page=1&include_adult=false';
+let searchQueryPrefix_Credit = '/credits?api_key=21702253ac343d65b98f3d4e87663ce2';
 
 $body = $("body");
 
@@ -73,29 +73,7 @@ $(document).ready(function () {
                     let movies_list = data.results;
                     var content = '';
                     //console.log(genres[0]);
-                    console.log(Object.keys(movies_list).length);
-
-                    if (Object.keys(movies_list).length == 0) {
-
-                        $.ajax({
-                            url: genreList,
-                            type: 'GET',
-                            dataType: 'json',
-
-                            success: function (data) {
-                                genres.push(data.genres);
-                            },
-
-                            error: function () {
-                                alert("Fetch Failed!");
-                            }
-                        })
-
-                            .done(function (data) {
-                                let people = data.results;
-                                console.log(people);
-                            })
-                    }
+                    //console.log(Object.keys(movies_list).length);
 
                     var content = '';
                     for (const item of movies_list) {
@@ -233,7 +211,7 @@ $(document).ready(function () {
                         let specific_movie_final = specific_movie_prefix + $(this).val() + specifig_movie_suffix;
 
                         let specific_movie_reviews_final = specific_movie_reviews_prefix + $(this).val() + specific_movie_reviews_suffix;
-                        console.log(specific_movie_reviews_final);
+                        //console.log(specific_movie_reviews_final);
 
                         let genres = [];
                         let reviews = [];
@@ -376,7 +354,7 @@ $(document).ready(function () {
                                                 <div class="meta-data">
                                                     <ul class="nav">
                                                         <button class="info"><li class="active">Info</li></button>
-                                                        <button class="cast"><li>Cast</li></button>
+                                                        <button class="cast" value="${movie.id}" ><li>Cast</li></button>
                                                         <button class="review"><li>Reviews</li></button>
                                                         <button class="award"><li>Awards(0)</li></button>
                                                     </ul>
@@ -389,9 +367,14 @@ $(document).ready(function () {
 
                                 content += `</span>
                                                         <span class="story" id="span-content">
-                                                            <h1> Overview </h1>
+                                                            <h3 class="overview"> Overview </h3>
                                                             ${movie.overview}
                                                             <br />
+
+                                                            <div class = "cast-content-container" id="cast-content-container">
+
+                                                            </div>
+
                                                         </span>
                                                     </div>
                                                     <div class="btn-back">
@@ -417,9 +400,12 @@ $(document).ready(function () {
                                     var content = '';
 
 
-                                    content += `<h1> Overview </h1>
-                                                    ${movie.overview}
-                                                    <br />`;
+                                    content += `<h3 class="overview"> Overview: </h3>
+                                        <h6 class="overview-content"> ${movie.overview} </h6>
+                                            <br />
+                                        <div class = "cast-content-container" id="cast-content-container">
+
+                                        </div>`;
 
                                     $('#span-content').html(content);
                                 })
@@ -428,11 +414,80 @@ $(document).ready(function () {
                                     var content = '';
 
                                     for (const item_review of reviews[0]) {
-                                        content += `<h3> By ${item_review.author}: </h3>
-                                        ${item_review.content}
-                                        <br /><br />`;
+                                        content += `<h3 class="review"> By ${item_review.author}: </h3>
+                                        <h6 class="review-content">${item_review.content}</h6>
+                                        <br />
+                                        <div class = "cast-content-container" id="cast-content-container">
+
+                                        </div>`;
                                     }
                                     $('#span-content').html(content);
+                                })
+
+                                $(".cast").click(function () {
+                                    $("h3.overview").hide();
+                                    $("h3.review").hide();
+                                    $("h6.overview-content").hide();
+                                    $("h6.review-content").hide();
+
+                                    // Get value from button
+                                    let value = $(this).val();
+
+                                    let searchString = value;
+
+                                    searchString = searchString.replace(/\s/g, "%20");
+
+                                    let finalSearchQuery_People = searchQuerySuffix_Credit + searchString + searchQueryPrefix_Credit;
+
+                                    //console.log(finalSearchQuery_People);
+
+                                    $.ajax({
+                                        url: finalSearchQuery_People,
+                                        type: 'GET',
+                                        dataType: 'json',
+
+                                        success: function () {
+
+                                        },
+
+                                        error: function () {
+                                            alert("Fetch Failed!");
+                                        }
+                                    })
+                                        .done(function (data) {
+                                            var content = '';
+                                            content += `<h3>Cast</h3>`;
+
+                                            let cast = data.cast;
+
+                                            let crew = data.crew;
+
+                                            for (const cast_item of cast) {
+                                                content +=
+                                                    `
+                                                            <div class="cast-detail">
+                                                                    <div class="profile-thumb">
+                                                                        <img src="http://image.tmdb.org/t/p/w185/${cast_item.profile_path}"
+                                                                            alt="" width="110">
+                                                                    </div>
+                                                            <div class="cast-detail">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td class="title">${cast_item.name}</td>
+                                                                    </tr>
+                    
+                                                                    <tr>
+                                                                        <td class="release">
+                                                                            As: ${cast_item.character}
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            <span class="more-option"></span>
+                                                        </div>
+                                                    </div>`
+                                            }
+                                            $('#cast-content-container').html(content);
+                                        })
                                 })
 
                                 $(".btn-back-button").click(function () {

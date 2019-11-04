@@ -599,3 +599,30 @@ div.footer-popup ul li span {
 .loading .modal {
     display: block;
 }
+
+div.cast-content-container
+{
+  display: block;
+}
+
+div.cast-content-container div.cast-detail
+{
+  margin: 60px;
+}
+
+div.profile-thumb {
+    position: absolute;
+    width: 110px;
+    /*height: 250px;*/
+    height: 110px;
+    overflow: hidden;
+    border-radius: 10px;
+    transform: scale(0.85) translateX(0px);
+    box-shadow: 10px 15px 15px -10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    z-index: 1;
+    /*height: 159px;
+  border-radius: 0;
+  box-shadow: 0 0 5px 3px rgba(0,0,0,0.15);
+  transform: scale(0.9) translateX(3px) translateY(-10px);*/
+  }

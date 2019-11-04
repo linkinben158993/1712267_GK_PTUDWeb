@@ -204,7 +204,7 @@ $(document).ready(function () {
                 let specific_movie_final = specific_movie_prefix + $(this).val() + specifig_movie_suffix;
 
                 let specific_movie_reviews_final = specific_movie_reviews_prefix + $(this).val() + specific_movie_reviews_suffix;
-                console.log(specific_movie_reviews_final);
+                //console.log(specific_movie_reviews_final);
 
                 let genres = [];
                 let reviews = [];
@@ -361,7 +361,7 @@ $(document).ready(function () {
                         content += `</span>
                                                 <span class="span-content" id="span-content">
                                                     <h3 class="overview"> Overview: </h3>
-                                                    <h6> ${movie.overview} </h6>
+                                                    <h6 class="overview-content"> ${movie.overview} </h6>
                                                     <br />
                                                     <div class = "cast-content-container" id="cast-content-container">
 
@@ -390,9 +390,12 @@ $(document).ready(function () {
                             var content = '';
 
 
-                            content += `<h3 class="overview"> Overview </h3>
-                                            ${movie.overview}
-                                            <br />`;
+                            content += `<h3 class="overview"> Overview: </h3>
+                                        <h6 class="overview-content"> ${movie.overview} </h6>
+                                            <br />
+                                        <div class = "cast-content-container" id="cast-content-container">
+
+                                        </div>`;
 
                             $('#span-content').html(content);
                         });
@@ -401,16 +404,23 @@ $(document).ready(function () {
                             var content = '';
 
                             for (const item_review of reviews[0]) {
-                                console.log(item_review);
-                                content += `<h3> By ${item_review.author}: </h3>
-                                ${item_review.content}
-                                <br /><br />`;
+                                //console.log(item_review);
+                                content += `<h3 class="review"> By ${item_review.author}: </h3>
+                                            <h6 class="review-content">${item_review.content}</h6>
+                                            <br />
+                                            <div class = "cast-content-container" id="cast-content-container">
+
+                                            </div>`;
                             }
                             $('#span-content').html(content);
                         });
 
                         $(".cast").click(function () {
                             $("h3.overview").hide();
+                            $("h3.review").hide();
+                            $("h6.overview-content").hide();
+                            $("h6.review-content").hide();
+                            var content = '';
 
                             // Get value from button
                             let value = $(this).val();
@@ -421,7 +431,7 @@ $(document).ready(function () {
 
                             let finalSearchQuery_People = searchQuerySuffix_Credit + searchString + searchQueryPrefix_Credit;
 
-                            console.log(finalSearchQuery_People);
+                            //console.log(finalSearchQuery_People);
 
                             $.ajax({
                                 url: finalSearchQuery_People,
@@ -437,7 +447,6 @@ $(document).ready(function () {
                                 }
                             })
                                 .done(function (data) {
-                                    var content = '';
                                     content += `<h3>Cast</h3>`;
 
                                     let cast = data.cast;
